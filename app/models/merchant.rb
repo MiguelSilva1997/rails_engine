@@ -14,4 +14,7 @@ class Merchant < ApplicationRecord
   def self.find_random
     all.sample
   end
+
+  def self.revenue
+  end
 end
