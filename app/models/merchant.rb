@@ -1,5 +1,6 @@
 class Merchant < ApplicationRecord
   has_many :invoices
+  has_many :invoice_items, through: :invoices
   has_many :items
   has_many :customers, through: :invoices
 
@@ -15,6 +16,10 @@ class Merchant < ApplicationRecord
     all.sample
   end
 
-  def self.revenue
+  def self.revenue(params = nil)
+    Invoice.where(params)
+    .merge(Transaction.success)
+    .joins(:invoice_items, :transactions)
+    .sum("unit_price * quantity")
   end
 end

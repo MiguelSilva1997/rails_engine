@@ -35,5 +35,5 @@ require 'csv'
       Transaction.create!(row.to_hash)
     end
   end
-  
-  task seed_all: [:create_customers, :create_merchants, :create_invoices, :create_items, :create_invoice_items, :create_transactions]
+
+  task seed_all: [:seed_customers, :seed_merchants, :seed_invoices, :seed_items, :seed_invoice_items, :seed_transactions]
