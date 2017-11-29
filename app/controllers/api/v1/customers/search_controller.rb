@@ -5,7 +5,7 @@ class Api::V1::Customers::SearchController < ApplicationController
   end
 
   def show
-    render json: Customer.find_merchant(search_params)
+    render json: Customer.find_customer(search_params)
   end
 
   private
