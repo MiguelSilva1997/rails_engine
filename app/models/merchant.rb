@@ -16,10 +16,11 @@ class Merchant < ApplicationRecord
     all.sample
   end
 
-  def self.revenue(params = nil)
+  def self.revenue(params = nil, limit = 1)
     Invoice.where(params)
     .merge(Transaction.success)
     .joins(:invoice_items, :transactions)
+    .limit(limit)
     .sum("unit_price * quantity")
   end
 end
