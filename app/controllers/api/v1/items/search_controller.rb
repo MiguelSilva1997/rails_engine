@@ -5,12 +5,16 @@ class Api::V1::Items::SearchController < ApplicationController
   end
 
   def show
-    render json: Item.find_merchant(search_params)
+    render json: Item.find_item(search_params)
   end
 
   private
 
   def search_params
-    params.permit(:id, :name, :description, :unit_price, :merchant_id, :created_at, :updated_at)
-  end
+     if params[:unit_price]
+       params[:unit_price].delete!('.')
+     end
+     params.permit(:id, :name,
+       :description, :unit_price, :merchant_id, :created_at, :updated_at)
+   end
 end

@@ -5,7 +5,7 @@ class Api::V1::Transactions::SearchController < ApplicationController
   end
 
   def show
-    render json: Transaction.find_merchant(search_params)
+    render json: Transaction.find_transaction(search_params)
   end
 
   private

@@ -5,7 +5,7 @@ class Api::V1::InvoiceItems::SearchController < ApplicationController
   end
 
   def show
-    render json: InvoiceItem.find_merchant(search_params)
+    render json: InvoiceItem.find_invoice_item(search_params)
   end
 
   private
