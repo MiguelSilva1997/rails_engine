@@ -14,4 +14,31 @@ class Item < ApplicationRecord
       find_by(params)
     end
   end
+
+  def self.most_revenue(limit = 5)
+    joins(invoice_items: [invoice: [:transactions]])
+    .select('items.*, sum(invoice_items.quantity) AS most_sold')
+    .merge(Transaction.success)
+    .order('most_sold DESC')
+    .group("items.id")
+    .limit(limit)
+  end
+
+  def self.most_items(limit = 5)
+    joins(invoice_items: [invoice: [:transactions]])
+    .select("items.*, sum(invoice_items.quantity) AS amount_sold")
+    .merge(Transaction.success)
+    .order("amount_sold DESC")
+    .group("items.id")
+    .limit(limit)
+  end
+
+  def best_day
+    invoices.joins(:transactions)
+    .select('invoices.created_at, sum(invoice_items.quantity) AS sold')
+    .merge(Transaction.success)
+    .group(:id)
+    .order('sold desc')
+    .first.created_at
+  end
 end
