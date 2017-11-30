@@ -1,7 +1,8 @@
 class Api::V1::Invoices::ItemsController < ApplicationController
 
   def index
-    render json: Item.where(invoice_params)
+    invoice = Invoice.find(invoice_params[:invoice_id].to_i)
+    render json: invoice.items
   end
 
   private
